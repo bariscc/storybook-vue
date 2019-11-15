@@ -1,6 +1,12 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <div class="showcase">
+      <MsButton class="button" label='Hey there!' arrow/>
+      <MsSpinner size='lg'/>
+      <MsPersona name="Baris Ceylan" :size="48" title="UI Developer" status="online" imageUrl="https://picsum.photos/200"/>
+      <MsShimmer type='persona' width="135"/>
+    </div>
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
       check out the
@@ -31,10 +37,20 @@
 </template>
 
 <script>
+import MsButton from './MsButton';
+import MsSpinner from './MsSpinner';
+import MsPersona from './MsPersona';
+import MsShimmer from './MsShimmer';
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  components: {
+    MsButton,
+    MsSpinner,
+    MsPersona,
+    MsShimmer
   }
 }
 </script>
@@ -54,5 +70,15 @@ li {
 }
 a {
   color: #42b983;
+}
+
+.showcase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+}
+.showcase>*+* {
+  margin-top: 10px;
 }
 </style>
