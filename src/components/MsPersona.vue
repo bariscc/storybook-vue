@@ -165,8 +165,6 @@ export default {
     color: rgb(50, 49, 48);
     font-size: 14px;
     position: relative;
-    .name {
-    }
     .title {
       color: rgb(96, 94, 92);
       font-size: 12px;

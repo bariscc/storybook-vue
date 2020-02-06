@@ -6,7 +6,7 @@
       :disabled="buttonDisabled"
     ></MsButton>
     <transition name="fade">
-      <img class="img" v-if="status.success === 'downloaded'" :src="catUrl" />
+      <img class="img" v-if="showImage" :src="catUrl" />
     </transition>
   </div>
 </template>
@@ -17,11 +17,11 @@ import catMachine from "../machines/catMachineWithImageLoad";
 import { interpret } from "xstate";
 
 const buttonTexts = {
-  idle: "Get Cat",
-  loading: "Searching for a cat",
+  idle: "Get cat",
+  loading: "Searching for a cat...",
   success: {
-    downloading: "Found one! Downloading cat",
-    downloaded: "Cat rendered! want another?"
+    downloading: "Found one! Downloading cat...",
+    downloaded: "Cat ready! Want another?"
   },
   error: "Something went wrong ლ(ಠ益ಠლ), wanna try again?"
 };
@@ -41,14 +41,17 @@ export default {
       .start();
   },
   computed: {
+    showImage() {
+      return this.status.success === 'downloaded'
+    },
+    buttonDisabled() {
+      return this.status === "loading" || this.status.success === "downloading";
+    },
     buttonText() {
       if (this.status.success) {
         return buttonTexts.success[this.status.success];
       }
       return buttonTexts[this.status];
-    },
-    buttonDisabled() {
-      return this.status === "loading" || this.status.success === "downloading";
     }
   },
   data() {
@@ -78,7 +81,7 @@ export default {
   flex-direction: column;
 }
 .img {
-  max-width: 100%;
+  max-width: 300px;
   max-height: 100%;
   height: auto;
 }

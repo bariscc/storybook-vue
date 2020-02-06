@@ -2,11 +2,11 @@
   <div class="wrapper">
     <MsButton
       @click="send('GET')"
-      :disabled="status === 'loading'"
       :label="buttonText"
+      :disabled="buttonDisabled"
     ></MsButton>
     <transition name="fade">
-      <img class="img" v-if="status === 'success'" :src="catUrl" />
+      <img class="img" v-if="showImage" :src="catUrl" />
     </transition>
   </div>
 </template>
@@ -17,10 +17,10 @@ import catMachine from "../machines/catMachine";
 import { interpret } from "xstate";
 
 const buttonTexts = {
-  idle: "Get Cat",
-  loading: "Pls wait",
-  success: "Get another Cat",
-  error: "ლ(ಠ益ಠლ)"
+  idle: "Get cat",
+  loading: "Searching for a cat...",
+  success: "Get another cat",
+  error: "Something went wrong ლ(ಠ益ಠლ), wanna try again?"
 };
 
 export default {
@@ -38,6 +38,12 @@ export default {
       .start();
   },
   computed: {
+    showImage() {
+      return this.status === 'success'
+    },
+    buttonDisabled() {
+      return this.status === "loading";
+    },
     buttonText() {
       return buttonTexts[this.status];
     }
@@ -69,7 +75,7 @@ export default {
   flex-direction: column;
 }
 .img {
-  max-width: 100%;
+  max-width: 300px;
   max-height: 100%;
   height: auto;
 }

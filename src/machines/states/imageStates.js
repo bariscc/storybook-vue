@@ -5,18 +5,24 @@ const imageStates = {
   states: {
     downloading: {
       invoke: {
-        id: "loadCat",
+        id: "catImage",
         src: context => imgLoad(context.catUrl),
         onDone: {
           target: "downloaded"
         },
         onError: {
-          target: "#cat.error"
+          target: "errored"
         }
       }
     },
     downloaded: {
       type: "final"
+    },
+    errored: {
+      type: "final",
+      on: {
+        '': '#cat.error'
+      }
     }
   }
 };

@@ -14,7 +14,7 @@ const catMachine = Machine({
     },
     loading: {
       invoke: {
-        id: "getCat",
+        id: "catData",
         src: () => apiGet("https://api.thecatapi.com/v1/images/search"),
         onDone: {
           target: "success",
