@@ -39,7 +39,7 @@ export default {
   },
   computed: {
     showImage() {
-      return this.status === 'success'
+      return this.status === "success";
     },
     buttonDisabled() {
       return this.status === "loading";

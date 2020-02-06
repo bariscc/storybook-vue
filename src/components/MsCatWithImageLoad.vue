@@ -42,7 +42,7 @@ export default {
   },
   computed: {
     showImage() {
-      return this.status.success === 'downloaded'
+      return this.status.success === "downloaded";
     },
     buttonDisabled() {
       return this.status === "loading" || this.status.success === "downloading";

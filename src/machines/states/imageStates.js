@@ -21,7 +21,7 @@ const imageStates = {
     errored: {
       type: "final",
       on: {
-        '': '#cat.error'
+        "": "#cat.error"
       }
     }
   }
