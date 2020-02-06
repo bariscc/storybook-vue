@@ -1,6 +1,32 @@
 import { Machine, assign } from "xstate";
-import { apiGet } from "../utils";
-import imageStates from "./states/imageStates";
+import { apiGet, imgLoad } from "../utils";
+
+const imageStates = {
+  initial: "downloading",
+  states: {
+    downloading: {
+      invoke: {
+        id: "catImageDownload",
+        src: context => imgLoad(context.catUrl),
+        onDone: {
+          target: "downloaded"
+        },
+        onError: {
+          target: "errored"
+        }
+      }
+    },
+    downloaded: {
+      type: "final"
+    },
+    errored: {
+      type: "final",
+      on: {
+        "": "#cat.error"
+      }
+    }
+  }
+};
 
 const catMachine = Machine({
   id: "cat",
@@ -14,7 +40,7 @@ const catMachine = Machine({
     },
     loading: {
       invoke: {
-        id: "catData",
+        id: "catDataRequest",
         src: () => apiGet("https://api.thecatapi.com/v1/images/search"),
         onDone: {
           target: "success",

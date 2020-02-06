@@ -13,7 +13,7 @@
 
 <script>
 import MsButton from "./MsButton";
-import catMachine from "../machines/catMachineWithImageLoad";
+import catMachine from "../machines/catMachineWithFeatureNested";
 import { interpret } from "xstate";
 
 const buttonTexts = {
@@ -27,7 +27,7 @@ const buttonTexts = {
 };
 
 export default {
-  name: "MsCatWithImageLoad",
+  name: "catMachineWithFeatureNested",
   components: {
     MsButton
   },

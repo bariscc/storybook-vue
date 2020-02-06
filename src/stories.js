@@ -10,7 +10,8 @@ import MsSpinner from "./components/MsSpinner";
 import MsShimmer from "./components/MsShimmer";
 // xstate components
 import MsCat from "./components/MsCat";
-import MsCatWithImageLoad from "./components/MsCatWithImageLoad";
+import MsCatWithFeature from "./components/MsCatWithFeature";
+import MsCatWithFeatureNested from "./components/MsCatWithFeatureNested";
 
 storiesOf("Ms Components", module)
   .addDecorator(withKnobs)
@@ -109,11 +110,19 @@ storiesOf("Ms Components", module)
       </div>
     `
   }))
-  .add("CatWithImageLoad", () => ({
-    components: { MsCatWithImageLoad },
+  .add("CatWithFeature", () => ({
+    components: { MsCatWithFeature },
     template: `
       <div>
-          <MsCatWithImageLoad/>          
+          <MsCatWithFeature/>          
+      </div>
+    `
+  }))
+  .add("CatWithFeatureNested", () => ({
+    components: { MsCatWithFeatureNested },
+    template: `
+      <div>
+          <MsCatWithFeatureNested/>          
       </div>
     `
   }));

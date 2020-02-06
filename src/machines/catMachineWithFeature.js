@@ -1,5 +1,5 @@
 import { Machine, assign } from "xstate";
-import { apiGet } from "../utils";
+import { apiGet, imgLoad } from "../utils";
 
 const catMachine = Machine({
   id: "cat",
@@ -16,8 +16,20 @@ const catMachine = Machine({
         id: "catDataRequest",
         src: () => apiGet("https://api.thecatapi.com/v1/images/search"),
         onDone: {
-          target: "success",
+          target: "downloading",
           actions: assign({ catUrl: (c, e) => e.data[0].url })
+        },
+        onError: {
+          target: "error"
+        }
+      }
+    },
+    downloading: {
+      invoke: {
+        id: "catImageDownload",
+        src: context => imgLoad(context.catUrl),
+        onDone: {
+          target: "success"
         },
         onError: {
           target: "error"
