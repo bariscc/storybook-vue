@@ -19,10 +19,8 @@ import { interpret } from "xstate";
 const buttonTexts = {
   idle: "Get cat",
   loading: "Searching for a cat...",
-  success: {
-    downloading: "Found one! Downloading cat...",
-    downloaded: "Cat ready! Want another?"
-  },
+  "success.downloading": "Searching for a cat...",
+  "success.downloaded": "Get another cat",
   error: "Something went wrong ლ(ಠ益ಠლ), wanna try again?"
 };
 
@@ -31,38 +29,36 @@ export default {
   components: {
     MsButton
   },
-  created() {
-    // Start service on component creation
-    this.catService
-      .onTransition(state => {
-        this.status = state.value;
-        this.catUrl = state.context.catUrl;
-      })
-      .start();
-  },
-  computed: {
-    showImage() {
-      return this.status.success === "downloaded";
-    },
-    buttonDisabled() {
-      return this.status === "loading" || this.status.success === "downloading";
-    },
-    buttonText() {
-      if (this.status.success) {
-        return buttonTexts.success[this.status.success];
-      }
-      return buttonTexts[this.status];
-    }
-  },
   data() {
     return {
       // Interpret machine and store it in data
       catService: interpret(catMachine, { devTools: true }),
 
       // Start with machine's initial state
-      status: catMachine.initialState.value,
+      catState: catMachine.initialState,
       catUrl: catMachine.initialState.context.catUrl
     };
+  },
+  computed: {
+    showImage() {
+      return this.catState === "success.downloaded";
+    },
+    buttonDisabled() {
+      const disabledStates = ["loading", "success.downloading"];
+      return disabledStates.includes(this.catState);
+    },
+    buttonText() {
+      return buttonTexts[this.catState];
+    }
+  },
+  created() {
+    // Start service on component creation
+    this.catService
+      .onTransition(state => {
+        this.catState = state.toStrings().slice(-1)[0];
+        this.catUrl = state.context.catUrl;
+      })
+      .start();
   },
   methods: {
     // Send events to the service

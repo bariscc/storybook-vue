@@ -28,35 +28,35 @@ export default {
   components: {
     MsButton
   },
-  created() {
-    // Start service on component creation
-    this.catService
-      .onTransition(state => {
-        this.status = state.value;
-        this.catUrl = state.context.catUrl;
-      })
-      .start();
-  },
-  computed: {
-    showImage() {
-      return this.status === "success";
-    },
-    buttonDisabled() {
-      return this.status === "loading";
-    },
-    buttonText() {
-      return buttonTexts[this.status];
-    }
-  },
   data() {
     return {
       // Interpret machine and store it in data
       catService: interpret(catMachine, { devTools: true }),
 
       // Start with machine's initial state
-      status: catMachine.initialState.value,
+      catState: catMachine.initialState.value,
       catUrl: catMachine.initialState.context.catUrl
     };
+  },
+  computed: {
+    showImage() {
+      return this.catState === "success";
+    },
+    buttonDisabled() {
+      return this.catState === "loading";
+    },
+    buttonText() {
+      return buttonTexts[this.catState];
+    }
+  },
+  created() {
+    // Start service on component creation
+    this.catService
+      .onTransition(state => {
+        this.catState = state.value;
+        this.catUrl = state.context.catUrl;
+      })
+      .start();
   },
   methods: {
     // Send events to the service
