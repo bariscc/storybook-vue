@@ -1,23 +1,27 @@
 <template>
-<div class="wrapper">
-  <MsButton @click="send('GET')" :disabled='status === "loading"' :label="buttonText"></MsButton>
-  <transition name='fade'>
-    <img class="img" v-if="status === 'success'" :src="catUrl">
-  </transition>
-</div>
+  <div class="wrapper">
+    <MsButton
+      @click="send('GET')"
+      :disabled="status === 'loading'"
+      :label="buttonText"
+    ></MsButton>
+    <transition name="fade">
+      <img class="img" v-if="status === 'success'" :src="catUrl" />
+    </transition>
+  </div>
 </template>
 
 <script>
-import MsButton from './MsButton';
-import catMachine from '../machines/catMachine';
-import { interpret } from 'xstate';
+import MsButton from "./MsButton";
+import catMachine from "../machines/catMachine";
+import { interpret } from "xstate";
 
-const buttonTexts = { 
-  idle: 'Get Cat',
-  loading: 'Pls wait',
-  success: 'Get another Cat',
-  error: 'ლ(ಠ益ಠლ)'
-}
+const buttonTexts = {
+  idle: "Get Cat",
+  loading: "Pls wait",
+  success: "Get another Cat",
+  error: "ლ(ಠ益ಠლ)"
+};
 
 export default {
   name: "MsCat",
@@ -26,16 +30,17 @@ export default {
   },
   created() {
     // Start service on component creation
-    this.catService.onTransition(state => {
-      this.status = state.value;
-      this.catUrl = state.context.catUrl;
-    })
-    .start();
+    this.catService
+      .onTransition(state => {
+        this.status = state.value;
+        this.catUrl = state.context.catUrl;
+      })
+      .start();
   },
   computed: {
     buttonText() {
-      return buttonTexts[this.status]
-    },
+      return buttonTexts[this.status];
+    }
   },
   data() {
     return {
@@ -51,7 +56,7 @@ export default {
     // Send events to the service
     send(event) {
       this.catService.send(event);
-    }    
+    }
   }
 };
 </script>
@@ -68,8 +73,9 @@ export default {
   max-height: 100%;
   height: auto;
 }
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;

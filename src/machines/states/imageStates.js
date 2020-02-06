@@ -1,22 +1,22 @@
-import { imgLoad } from '../../utils';
+import { imgLoad } from "../../utils";
 
 const imageStates = {
-  initial: 'downloading',
+  initial: "downloading",
   states: {
     downloading: {
       invoke: {
-        id: 'loadCat',
-        src: (context, event) => imgLoad(context.catUrl),
+        id: "loadCat",
+        src: context => imgLoad(context.catUrl),
         onDone: {
-          target: 'downloaded',
+          target: "downloaded"
         },
         onError: {
-          target: '#cat.error',
+          target: "#cat.error"
         }
       }
     },
     downloaded: {
-      type: 'final'
+      type: "final"
     }
   }
 };

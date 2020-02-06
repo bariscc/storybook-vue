@@ -1,46 +1,55 @@
 <template>
-  <button class="ms-button" :class="computedClass" :disabled="disabled" @click="$emit('click')">
-    <span class="text">{{label}}</span><i class="ms-Icon ms-Icon--ChevronRight" v-if='arrow' aria-hidden="true"></i>
+  <button
+    class="ms-button"
+    :class="computedClass"
+    :disabled="disabled"
+    @click="$emit('click')"
+  >
+    <span class="text">{{ label }}</span
+    ><i
+      class="ms-Icon ms-Icon--ChevronRight"
+      v-if="arrow"
+      aria-hidden="true"
+    ></i>
   </button>
 </template>
 
 <script>
 export default {
-  name: 'MsButton',
+  name: "MsButton",
   props: {
     label: {
-      type: String,
+      type: String
     },
     size: {
       type: String,
-      default: 'md',
-      validator: function (value) {
+      default: "md",
+      validator: function(value) {
         // The value must match one of these strings
-        return ['sm', 'md', 'lg'].indexOf(value) !== -1
+        return ["sm", "md", "lg"].indexOf(value) !== -1;
       }
     },
     type: {
       type: String,
-      default: 'solid',
-      validator: function (value) {
+      default: "solid",
+      validator: function(value) {
         // The value must match one of these strings
-        return ['solid', 'flat'].indexOf(value) !== -1
+        return ["solid", "flat"].indexOf(value) !== -1;
       }
-
     },
     arrow: {
-      type: Boolean,
+      type: Boolean
     },
     disabled: {
-      type: Boolean,
+      type: Boolean
     }
   },
   computed: {
     computedClass() {
-      return `ms-button--${this.size} ms-button--${this.type}`
+      return `ms-button--${this.size} ms-button--${this.type}`;
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -50,17 +59,17 @@ button {
   border: 0;
 }
 .ms-button {
-  font-family: 'Segoe UI';
+  font-family: "Segoe UI";
   --scaling: 16px;
-  padding: calc(var(--scaling)/3) calc(var(--scaling)*5/4);
+  padding: calc(var(--scaling) / 3) calc(var(--scaling) * 5 / 4);
   font-size: var(--scaling);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
+
   border: 1px solid;
-  cursor: pointer;  
-  transition: all .2s ease-in-out;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
   &.ms-button--sm {
     --scaling: 12px;
   }
@@ -84,13 +93,13 @@ button {
     padding-bottom: 1px;
     margin-top: 2px;
     margin-bottom: 1px;
-    transition: border .3s ease-in-out;
+    transition: border 0.3s ease-in-out;
   }
   .ms-Icon {
-    margin-left: calc(var(--scaling)/2);
-    margin-right: calc(var(--scaling)*-1/3);
-    transition: transform .2s ease-in-out .05s;
-    font-size: calc(var(--scaling)*3/4)
+    margin-left: calc(var(--scaling) / 2);
+    margin-right: calc(var(--scaling) * -1 / 3);
+    transition: transform 0.2s ease-in-out 0.05s;
+    font-size: calc(var(--scaling) * 3 / 4);
   }
   &:disabled {
     cursor: default;
@@ -105,8 +114,8 @@ button {
       border-color: #fff;
     }
     .ms-Icon {
-      transform: translateX(calc(var(--scaling)/3));
+      transform: translateX(calc(var(--scaling) / 3));
     }
   }
-} 
+}
 </style>

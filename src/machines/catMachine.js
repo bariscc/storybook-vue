@@ -1,34 +1,34 @@
-import { Machine, assign } from 'xstate';
-import { apiGet } from '../utils';
+import { Machine, assign } from "xstate";
+import { apiGet } from "../utils";
 
 const catMachine = Machine({
-  id: 'cat',
-  initial: 'idle',
+  id: "cat",
+  initial: "idle",
   context: {
-    catUrl: ''
+    catUrl: ""
   },
   states: {
     idle: {
-      on: { GET: 'loading' }
+      on: { GET: "loading" }
     },
     loading: {
       invoke: {
-        id: 'getCat',
-        src: () => apiGet('https://api.thecatapi.com/v1/images/search'),
+        id: "getCat",
+        src: () => apiGet("https://api.thecatapi.com/v1/images/search"),
         onDone: {
-          target: 'success',
-          actions: assign({catUrl: (c, e) => e.data[0].url})
+          target: "success",
+          actions: assign({ catUrl: (c, e) => e.data[0].url })
         },
         onError: {
-          target: 'error',
+          target: "error"
         }
       }
     },
     success: {
-      on: { GET: 'loading' }
+      on: { GET: "loading" }
     },
     error: {
-      on: { GET: 'loading' }
+      on: { GET: "loading" }
     }
   },
   devTools: true

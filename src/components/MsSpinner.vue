@@ -1,22 +1,20 @@
 <template>
- <div :class="`ms-Spinner ms-Spinner--${size}`">
-   <div class="ms-Spinner-circle"></div>
+  <div :class="`ms-Spinner ms-Spinner--${size}`">
+    <div class="ms-Spinner-circle"></div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'MsSpinner',
+  name: "MsSpinner",
   props: {
-    size: String,
+    size: String
   },
-  computed: {
-  }
-}
+  computed: {}
+};
 </script>
 
 <style lang="scss" scoped>
-
 .ms-Spinner {
   --size: 20px;
   &--xs {
@@ -39,8 +37,20 @@ export default {
   border-color: rgb(0, 120, 212) rgb(199, 224, 244) rgb(199, 224, 244);
 }
 
-@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
-@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
-@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
-
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
 </style>
