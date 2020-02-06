@@ -1,5 +1,5 @@
 <template>
-  <button class="ms-button" :class="computedClass" :disabled="disabled">
+  <button class="ms-button" :class="computedClass" :disabled="disabled" @click="$emit('click')">
     <span class="text">{{label}}</span><i class="ms-Icon ms-Icon--ChevronRight" v-if='arrow' aria-hidden="true"></i>
   </button>
 </template>

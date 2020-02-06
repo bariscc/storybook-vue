@@ -9,6 +9,9 @@ import MsButton from './components/MsButton';
 import MsPersona from './components/MsPersona';
 import MsSpinner from './components/MsSpinner';
 import MsShimmer from './components/MsShimmer';
+// xstate components
+import MsCat from './components/MsCat';
+import MsCatWithImageLoad from './components/MsCatWithImageLoad';
 
 storiesOf('Ms Components', module)
   .addDecorator(withKnobs)
@@ -38,73 +41,77 @@ storiesOf('Ms Components', module)
       </div>
     `
   }))
-
-
-
-    .add('Persona', () => ({
-      components: { MsPersona },
-      props: {
-        name: {
-          default: text('name', 'Annie Lindqvist')
-        },
-        title: {
-          default: text('title', 'Software Engineer')
-        },
-        status: {
-          default: select('status', ['online', 'busy', 'away', 'blocked', 'indeterminate'], 'online')
-        },
-        size: {
-          default: select('size', [24, 48], 48)
-        },
-        imageUrl:  {
-          default: text('imageUrl', 'https://picsum.photos/200')
-        }
+  .add('Persona', () => ({
+    components: { MsPersona },
+    props: {
+      name: {
+        default: text('name', 'Annie Lindqvist')
       },
-      template: `
+      title: {
+        default: text('title', 'Software Engineer')
+      },
+      status: {
+        default: select('status', ['online', 'busy', 'away', 'blocked', 'indeterminate'], 'online')
+      },
+      size: {
+        default: select('size', [24, 48], 48)
+      },
+      imageUrl:  {
+        default: text('imageUrl', 'https://picsum.photos/200')
+      }
+    },
+    template: `
+      <div class='preview'>
+        <MsPersona :name="name" :size="size" :title="title" :status="status" :imageUrl="imageUrl"></MsPersona>
+      </div>
+    `
+  }))
+  .add('Spinner', () => ({
+    components: { MsSpinner },
+    props: {
+      size: {
+        default: select('size', ['xs', 'sm', 'md', 'lg'], 'md')
+      },
+    },
+    template: `
+      <div class='preview'>
+        <MsSpinner :size="size"></MsSpinner>
+      </div>
+    `
+  }))
+  .add('Shimmer', () => ({
+    components: { MsShimmer },
+    props: {
+      width: {
+        default: text('width', '156px')
+      },
+      type: {
+        default: select('type', ['persona'], 'persona')
+      }
+    },
+    template: `
+      <div>
         <div class='preview'>
-          <MsPersona :name="name" :size="size" :title="title" :status="status" :imageUrl="imageUrl"></MsPersona>
+          <MsShimmer :width="width" :type="type"></MsShimmer>
         </div>
-      `
-    }))
-
-
-
-    .add('Spinner', () => ({
-      components: { MsSpinner },
-      props: {
-        size: {
-          default: select('size', ['xs', 'sm', 'md', 'lg'], 'md')
-        },
-      },
-      template: `
-        <div class='preview'>
-          <MsSpinner :size="size"></MsSpinner>
-        </div>
-      `
-    }))
-
-
-
-    .add('Shimmer', () => ({
-      components: { MsShimmer },
-      props: {
-        width: {
-          default: text('width', '156px')
-        },
-        type: {
-          default: select('type', ['persona'], 'persona')
-        }
-      },
-      template: `
-        <div>
-          <div class='preview'>
-            <MsShimmer :width="width" :type="type"></MsShimmer>
-          </div>
-          
-        </div>
-      `
-    }));
-
-    /* <div class='preview'>
-            <button style='margin-top:20px;' onClick='console.log("todo")'>Simulate content load</button>
-          </div> */
+        
+      </div>
+    `
+  }))
+  .add('Cat', () => ({
+    components: { MsCat },
+    template: `
+      <div>
+          <MsCat/>          
+      </div>
+    `
+  }))
+  .add('CatWithImageLoad', () => ({
+    components: { MsCatWithImageLoad },
+    template: `
+      <div>
+          <MsCatWithImageLoad/>          
+      </div>
+    `
+  }))
+;
