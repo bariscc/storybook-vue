@@ -1,4 +1,5 @@
 # storybook-vue
+A demonstration of Storybook and state machines concept using vue.js framework.
 
 ## Project setup
 ```
